@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
 
     private Enemy _targetEnemy;
 
+    [SerializeField] private Animator anim;
+
     // FixedUpdate adalah update yang lebih konsisten jeda pemanggilannya
     // cocok digunakan jika karakter memiliki Physic (Rigidbody, dll)
     private void FixedUpdate()
@@ -45,8 +47,8 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.Equals(_targetEnemy.gameObject))
         {
-            gameObject.SetActive(false);
-
+            anim.SetBool("Boom", true);
+            delay();
             // Bullet yang memiliki efek splash area
             if (_bulletSplashRadius > 0f)
             {
@@ -60,6 +62,16 @@ public class Bullet : MonoBehaviour
 
             _targetEnemy = null;
         }
+    }
+
+    void destroyBullet()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void delay()
+    {
+        Invoke("destroyBullet", 1);
     }
 
     public void SetProperties(int bulletPower, float bulletSpeed, float bulletSplashRadius)

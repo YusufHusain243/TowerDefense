@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
                 transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
             }
         }
-
+        
         _healthBar.transform.parent = transform;
     }
 
